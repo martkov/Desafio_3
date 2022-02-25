@@ -13,7 +13,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Buttom from "../../../components/Buttom";
 
-export default function Detalles() {
+export default function Usuarios() {
   const [textInput, setTextInput] = useState("");
   const [itemList, setItemList] = useState([]);
 

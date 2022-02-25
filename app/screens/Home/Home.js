@@ -1,14 +1,123 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  FlatList,
+  Modal,
+  StyleSheet,
+  Dimensions,
+  Image,
+} from "react-native";
 import Buttom from "../../../components/Buttom";
+
+import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+
 
 
 const widht = Dimensions.get("window").width;
 
-export default function Home({navigation}) {
+export default function Home({ navigation }) {
+  
+  
+
+  const [textInput, setTextInput] = useState("");
+  const [itemList, setItemList] = useState([]);
+
+  const [itemSelected, setItemSelected] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleChangeText = (text) => {
+    setTextInput(text);
+  };
+
+  const handleOnPress = () => {
+    setTextInput("");
+    setItemList([
+      ...itemList,
+      {
+        value: textInput,
+        id: Math.random().toString(),
+      },
+    ]);
+  };
+
+  const handleOnDelete = (item) => () => {
+    setModalVisible(true);
+    setItemSelected(item);
+  };
+
+  const handleConfirmDelete = () => {
+    const { id } = itemSelected;
+    setItemList(itemList.filter((item) => item.id !== id));
+    setModalVisible(false);
+    setItemSelected({});
+  };
+
+  console.log(textInput);
+
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.image}
+        source={require("../../../assets/MiFontanero.png")}
+      />
+      <Text style={styles.title}>{"Si aun no esta registrado \n  registrese aqui debajo"}</Text>
+      <View style={styles.inputContainer}>
+        <View style={styles.password}>
+          <TextInput
+            style={[styles.input]}
+            placeholder="ingrese aqui su nombre de usuario"
+            value={textInput}
+            onChangeText={handleChangeText}
+          />
+          <TextInput
+            style={[styles.input]}
+            placeholder="ingrese aqui su contraseña"
+          />
+        </View>
+        <TouchableOpacity
+          style={styles.btn}
+          activeOpacity={0.7}
+          onPress={handleOnPress}
+        >
+          <Text>{"  Registre \n sus datos"}</Text>
+        </TouchableOpacity>
+      </View>
+
+      <FlatList
+        data={itemList}
+        renderItem={({ item }) => (
+          <View style={styles.item}>
+            <Text>{item.value}</Text>
+            <Text>
+              {
+                "desea borrar \n su nombre de usuario ? \n borrelo presionando la X"
+              }{" "}
+            </Text>
+            <Button onPress={handleOnDelete(item)} title="X" />
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
+      />
+
+      <Modal animationType="slide" visible={modalVisible}>
+        <View>
+          <View>
+            <Text>¿Está seguro que desea eliminar?</Text>
+            <Text>{itemSelected.value}</Text>
+          </View>
+          <View>
+            <Button onPress={handleConfirmDelete} title="CONFIRMAR" />
+          </View>
+        </View>
+      </Modal>
+      <StatusBar style="auto" />
+
       <Buttom
         style={styles.btn}
         onPress={() => navigation.navigate("Fontaneros")}
@@ -17,11 +126,10 @@ export default function Home({navigation}) {
       </Buttom>
       <Buttom
         style={styles.btn}
-        onPress={() => navigation.navigate("Destinos")}
+        onPress={() => navigation.navigate("Usuarios")}
       >
         <Text>{"Ingrese a su pagina de usuario"}</Text>
       </Buttom>
-      
     </View>
   );
 }
@@ -56,4 +164,12 @@ const styles = StyleSheet.create({
     right: 10,
     alignSelf: "flex-end",
   },
+  image: {
+    width: 250,
+    height: 150,
+  },
+  title:{
+    fontSize: 18,
+  },
+ 
 });

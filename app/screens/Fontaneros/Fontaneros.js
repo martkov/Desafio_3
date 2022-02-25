@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import {
   Text,
+  Button,
   View,
   StyleSheet,
   ScrollView,
   TextInput,
+  FlatList,
+  Modal,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -26,98 +29,102 @@ const SignupSchema = Yup.object().shape({
     .required("Este campo debe ser completado"),
 });
 
-const Fontaneros = () => {
-  const [error, setError] = useState("");
+const widht = Dimensions.get("window").width;
 
-  const handlerSubmit = async (values) => {
-    setError("");
-    try {
-      let fontaneros = [];
-      const value = await AsyncStorage.getItem("fontaneros");
-      if (value) {
-        fontaneros = JSON.parse(value);
-            if (
-              fontaneros.find((item) => item.phone.trim() === values.phone.trim())
-            ) {
-              return setError("el valor esta duplicado");
-            } else {
-              fontaneros.push({ ...values, phone: item.cod.trim() });
-              const json_value = Json.stringify(fontaneros);
-              await AsyncStorage.setItem("fontaneros", json_value);
-            }
-      } else {
-        fontaneros.push(values);
-        const json_value = JSON.stringify(fontaneros);
-        await AsyncStorage.setItem("fontaneros", json_value);
-      }
-    } catch (error) {
-      AsyncStorage.removeItem("fontaneros");
-      console.log(error);
-    }
+const Fontaneros = ({ navigation }) => {
+  const [textInput, setTextInput] = useState("");
+  const [itemList, setItemList] = useState([]);
+
+  const [itemSelected, setItemSelected] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleChangeText = (text) => {
+    setTextInput(text);
   };
+
+  const handleOnPress = () => {
+    setTextInput("");
+    setItemList([
+      ...itemList,
+      {
+        value: textInput,
+        id: Math.random().toString(),
+      },
+    ]);
+  };
+
+  const handleOnDelete = (item) => () => {
+    setModalVisible(true);
+    setItemSelected(item);
+  };
+
+  const handleConfirmDelete = () => {
+    const { id } = itemSelected;
+    setItemList(itemList.filter((item) => item.id !== id));
+    setModalVisible(false);
+    setItemSelected({});
+  };
+
+  console.log(textInput);
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scroll}>
+      
         <Formik
-          initialValues={{ name: "", phone: "" }}
+          /*initialValues={{ name: "", phone: "" }}*/
           validationSchema={SignupSchema}
-          onSubmit={handlerSubmit}
+          /*onSubmit={handlerSubmit}*/
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-          }) => (
-            <>
-              <View style={styles.form}>
-                <Text style={styles.text}>Nombre y Apellido</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="coloque aqui el nombre y apellido"
-                  onChangeText={handleChange("name")}
-                  onBlur={handleBlur("name")}
-                  value={values.name}
-                />
-                {errors.name && touched.name ? (
-                  <Text style={styles.erro}>{errors.name}</Text>
-                ) : null}
-              </View>
-              <View>
-                <Text style={styles.text}>telefono</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="coloque aqui el numero de telefono"
-                  onChangeText={handleChange("phone")}
-                  onBlur={handleBlur("phone")}
-                  value={values.phone}
-                />
-                {errors.phone && touched.phone ? (
-                  <Text style={styles.erro}>{errors.phone}</Text>
-                ) : null}
-              </View>
-              <View style={styles.buttom}>
-                <Buttom
-                  style={styles.btn}
-                  activeOpacity={0.7}
-                  onPress={handleSubmit}
-                >
-                  <Text style={styles.btn_txt}>Agregar Fontanero</Text>
-                </Buttom>
-              </View>
-            </>
-          )}
-          
+          <View style={styles.inputContainer}>
+            <View style={styles.password}>
+              <TextInput
+                style={[styles.input]}
+                placeholder="ingrese aqui el nombre y el numero de telefono"
+                value={textInput}
+                onChangeText={handleChangeText}
+              />
+            </View>
+            <Buttom
+              style={styles.btn}
+              activeOpacity={0.7}
+              onPress={handleOnPress}
+            >
+              <Text>{"Ingrese al  nuevo fontanero"}</Text>
+            </Buttom>
+           
+          </View>
         </Formik>
-        <Buttom 
-              color={Colors.primary} 
-              title="ir al home" 
-              onPress={()=>{}}>
-        </Buttom>
-      </ScrollView>
+        <FlatList
+              data={itemList}
+              renderItem={({ item }) => (
+                <View style={styles.item}>
+                  <Text>{item.value}</Text>
+                  <Text>
+                    {"borrelo presionando la X"}
+                  </Text>
+                  <Button onPress={handleOnDelete(item)} title="X" />
+                </View>
+              )}
+              keyExtractor={(item) => item.id}
+            />
+
+            <Modal animationType="slide" visible={modalVisible}>
+              <View>
+                <View>
+                  <Text>¿Está seguro que desea eliminar?</Text>
+                  <Text>{itemSelected.value}</Text>
+                </View>
+                <View>
+                  <Button onPress={handleConfirmDelete} title="CONFIRMAR" />
+                </View>
+              </View>
+            </Modal>
+        <Buttom
+          color={Colors.primary}
+          title="ir al home"
+          onPress={() => navigation.navigate("Home")}
+        ></Buttom>
+     
     </View>
   );
 };
