@@ -4,19 +4,15 @@ import {
   Button,
   View,
   StyleSheet,
-  ScrollView,
   TextInput,
   FlatList,
   Modal,
-  TouchableOpacity,
   Dimensions,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Buttom from "../../../components/Buttom";
 import Colors from "../../../constants/Colors";
-import Home from "../Home/Home";
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -69,62 +65,65 @@ const Fontaneros = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      
-        <Formik
-          /*initialValues={{ name: "", phone: "" }}*/
-          validationSchema={SignupSchema}
-          /*onSubmit={handlerSubmit}*/
-        >
-          <View style={styles.inputContainer}>
-            <View style={styles.password}>
-              <TextInput
-                style={[styles.input]}
-                placeholder="ingrese aqui el nombre y el numero de telefono"
-                value={textInput}
-                onChangeText={handleChangeText}
-              />
-            </View>
-            <Buttom
-              style={styles.btn}
-              activeOpacity={0.7}
-              onPress={handleOnPress}
-            >
-              <Text>{"Ingrese al  nuevo fontanero"}</Text>
-            </Buttom>
-           
-          </View>
-        </Formik>
-        <FlatList
-              data={itemList}
-              renderItem={({ item }) => (
-                <View style={styles.item}>
-                  <Text>{item.value}</Text>
-                  <Text>
-                    {"borrelo presionando la X"}
-                  </Text>
-                  <Button onPress={handleOnDelete(item)} title="X" />
-                </View>
-              )}
-              keyExtractor={(item) => item.id}
+      <Formik
+        /*initialValues={{ name: "", phone: "" }}*/
+        validationSchema={SignupSchema}
+        /*onSubmit={handlerSubmit}*/
+      >
+        <View style={styles.inputContainer}>
+          <View style={styles.password}>
+            <TextInput
+              style={[styles.input]}
+              placeholder="ingrese aqui el nombre y el numero de telefono"
+              value={textInput}
+              onChangeText={handleChangeText}
             />
+          </View>
+          <Buttom
+            style={styles.btn}
+            activeOpacity={0.7}
+            onPress={handleOnPress}
+          >
+            <Text>{"Ingrese al  nuevo fontanero"}</Text>
+          </Buttom>
+        </View>
+      </Formik>
+      <FlatList
+        data={itemList}
+        renderItem={({ item }) => (
+          <View style={styles.item}>
+            <Text>{item.value}</Text>
+            <Text>{"borrelo presionando la X"}</Text>
+            <Button onPress={handleOnDelete(item)} title="X" />
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
+      />
 
-            <Modal animationType="slide" visible={modalVisible}>
-              <View>
-                <View>
-                  <Text>¿Está seguro que desea eliminar?</Text>
-                  <Text>{itemSelected.value}</Text>
-                </View>
-                <View>
-                  <Button onPress={handleConfirmDelete} title="CONFIRMAR" />
-                </View>
-              </View>
-            </Modal>
-        <Buttom
-          color={Colors.primary}
-          title="ir al home"
-          onPress={() => navigation.navigate("Home")}
-        ></Buttom>
-     
+      <Modal animationType="slide" visible={modalVisible}>
+        <View>
+          <View>
+            <Text>¿Está seguro que desea eliminar?</Text>
+            <Text>{itemSelected.value}</Text>
+          </View>
+          <View>
+            <Button onPress={handleConfirmDelete} title="CONFIRMAR" />
+          </View>
+        </View>
+      </Modal>
+
+      <Buttom
+        style={styles.btn}
+        onPress={() => navigation.navigate("Categorias")}
+      >
+        <Text>{"Seleccione la categoria de fontanero"}</Text>
+      </Buttom>
+
+      <Buttom
+        color={Colors.primary}
+        title="ir al home"
+        onPress={() => navigation.navigate("Home")}
+      ></Buttom>
     </View>
   );
 };

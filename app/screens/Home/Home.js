@@ -12,17 +12,18 @@ import {
 } from "react-native";
 import Buttom from "../../../components/Buttom";
 
+
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-
-
+import { useFonts } from "expo-font";     
+import AppLoading from "expo-app-loading";    /*............*/
 
 const widht = Dimensions.get("window").width;
 
-export default function Home({ navigation }) {
-  
+export default function Home({ navigation }) {  
+
   
 
   const [textInput, setTextInput] = useState("");
@@ -59,6 +60,11 @@ export default function Home({ navigation }) {
   };
 
   console.log(textInput);
+
+  const [loaded] = useFonts({            /*......el fonts va sobre el return ......*/
+    Acme: require('./../../../assets/fonts/Acme-Regular.ttf'), 
+  })
+  if (!loaded) return <AppLoading/>       
 
   return (
     <View style={styles.container}>
@@ -130,6 +136,7 @@ export default function Home({ navigation }) {
       >
         <Text>{"Ingrese a su pagina de usuario"}</Text>
       </Buttom>
+      
     </View>
   );
 }
@@ -170,6 +177,7 @@ const styles = StyleSheet.create({
   },
   title:{
     fontSize: 18,
+    fontFamily: 'Acme',
   },
  
 });
