@@ -81,11 +81,10 @@ const Fontaneros = ({ navigation }) => {
           </View>
           <Buttom
             style={styles.btn}
+            title="Ingrese al nuevo fontanero"
             activeOpacity={0.7}
             onPress={handleOnPress}
-          >
-            <Text>{"Ingrese al  nuevo fontanero"}</Text>
-          </Buttom>
+          />
         </View>
       </Formik>
       <FlatList
@@ -114,16 +113,14 @@ const Fontaneros = ({ navigation }) => {
 
       <Buttom
         style={styles.btn}
+        title="Seleccione la categoria de fontanero"
         onPress={() => navigation.navigate("Categorias")}
-      >
-        <Text>{"Seleccione la categoria de fontanero"}</Text>
-      </Buttom>
-
+      />
       <Buttom
         color={Colors.primary}
         title="ir al home"
         onPress={() => navigation.navigate("Home")}
-      ></Buttom>
+      />
     </View>
   );
 };
@@ -131,6 +128,7 @@ const Fontaneros = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: `#00bfff`,
   },
   scroll: {
     paddingHorizontal: 15,

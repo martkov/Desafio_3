@@ -100,11 +100,9 @@ export default function Usuarios() {
 
       <Buttom
         style={styles.btn}
+        title="Ingreso a su portal de usuario"
         onPress={() => console.log("Ingreso a su portal de usuario, Bienvenido")}
-      >
-        <Text>{"Ingreso a su portal de usuario"}</Text>
-      </Buttom>
-      
+      />
       <StatusBar style="auto" />
     </View>
   );
@@ -116,7 +114,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     backgroundColor: `#00bfff`,
   },
   input: {

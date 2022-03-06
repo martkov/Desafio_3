@@ -18,7 +18,7 @@ import { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { useFonts } from "expo-font";     
-import AppLoading from "expo-app-loading";    /*............*/
+import AppLoading from "expo-app-loading";   
 
 const widht = Dimensions.get("window").width;
 
@@ -72,7 +72,7 @@ export default function Home({ navigation }) {
         style={styles.image}
         source={require("../../../assets/MiFontanero.png")}
       />
-      <Text style={styles.title}>{"Si aun no esta registrado \n  registrese aqui debajo"}</Text>
+      <Text style={styles.title}>{"Registrese aqui debajo"}</Text>
       <View style={styles.inputContainer}>
         <View style={styles.password}>
           <TextInput
@@ -126,17 +126,14 @@ export default function Home({ navigation }) {
 
       <Buttom
         style={styles.btn}
+        title="Recomiende a su Fontanero ingresando aqui"
         onPress={() => navigation.navigate("Fontaneros")}
-      >
-        <Text>Agregar Fontanero</Text>
-      </Buttom>
+      />
       <Buttom
         style={styles.btn}
+        title="Ingrese a su pagina de Usuario"
         onPress={() => navigation.navigate("Usuarios")}
-      >
-        <Text>{"Ingrese a su pagina de usuario"}</Text>
-      </Buttom>
-      
+      /> 
     </View>
   );
 }
