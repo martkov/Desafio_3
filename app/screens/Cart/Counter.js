@@ -21,8 +21,7 @@ export default function Count (){
 const Counter = (state = 0, action) => {
   switch (action.type) {
     case "incremented":
-      return state + 500;
-      
+      return state + 500;  
     case "decremented":
       return state - 500;
     case "reseted":

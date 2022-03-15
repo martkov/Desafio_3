@@ -7,102 +7,81 @@ import {
   TextInput,
   View,
   Button,
+  Image,
   FlatList,
   Modal,
+  ScrollView,
+  Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Buttom from "../../../components/Buttom";
+import { useDispatch } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
+import { addPlace } from "../../../store/actions/place.actions";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function Usuarios() {
-  const [textInput, setTextInput] = useState("");
-  const [itemList, setItemList] = useState([]);
+  const dispatch = useDispatch()
+  const [title, setTitle] =useState();
 
-  const [itemSelected, setItemSelected] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
+  const [pickedUri, setpickeUri]= useState();
 
-  const handleChangeText = (text) => {
-    setTextInput(text);
-  };
+  const verifyPermissions = async ()=> {
+      const {granted} = await ImagePicker.requestCameraPermissionsAsync()
+      if(granted){
+        return true;
+      }
+      Alert.alert(
+        'permisos insuficientes',
+        [{text:'ok'}]
+      )
+      return false;
+  }
 
-  const handleOnPress = () => {
-    setTextInput("");
-    setItemList([
-      ...itemList,
-      {
-        value: textInput,
-        id: Math.random().toString(),
-      },
-    ]);
-  };
+  const handleTakeImage = async () => {
+      const isCamaraOk = await verifyPermissions()
+      if (!isCamaraOk) return;
 
-  const handleOnDelete = (item) => () => {
-    setModalVisible(true);
-    setItemSelected(item);
-  };
+      const image = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [16,9],
+        quality: 0.8,
+      })
+  }
 
-  const handleConfirmDelete = () => {
-    const { id } = itemSelected;
-    setItemList(itemList.filter((item) => item.id !== id));
-    setModalVisible(false);
-    setItemSelected({});
-  };
-
-  console.log(textInput);
+  const handleSave = () => {
+    dispatch(addPlace(title))
+    //navigation.navigate('Home')
+    console.log(title)
+  }
+  
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.container, styles.title]}>miFontanero App</Text>
-      <View style={styles.inputContainer}>
-        <View style={styles.password}>
-          <TextInput
-            style={[styles.input]}
-            placeholder="ingrese aqui su usuario"
-            value={textInput}
-            onChangeText={handleChangeText}
-          />
-          <TextInput
-            style={[styles.input]}
-            placeholder="ingrese aqui su contraseña"
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.btn}
-          activeOpacity={0.7}
-          onPress={handleOnPress}
-        >
-          <Text>{" \n Confirme \n el usuario \n "}</Text>
-        </TouchableOpacity>
-      </View>
-
-      <FlatList
-        data={itemList}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text>{item.value}</Text>
-            <Text>{"no es su usuario ? \n borrelo presionando la X"} </Text>
-            <Button onPress={handleOnDelete(item)} title="X" />
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-      />
-
-      <Modal animationType="slide" visible={modalVisible}>
-        <View>
-          <View>
-            <Text>¿Está seguro que desea eliminar?</Text>
-            <Text>{itemSelected.value}</Text>
-          </View>
-          <View>
-            <Button onPress={handleConfirmDelete} title="CONFIRMAR" />
-          </View>
-        </View>
-      </Modal>
 
       <Buttom
         style={styles.btn}
-        title="Ingreso a su portal de usuario"
-        onPress={() => console.log("Ingreso a su portal de usuario, Bienvenido")}
+        title="Lista de Fontaneros recomendados en su barrio"
+        onPress={() =>
+          console.log("Ingreso a su portal de usuario, Bienvenido")
+        }
       />
+      <ScrollView>
+        <View>
+          <Text>titulo</Text>
+          <TextInput
+          style={styles.input}
+          value={title}
+          onChangeText={setTitle}
+          />
+          <Buttom 
+          style={styles.btn}
+          title={"guardar"}
+          onPress={handleSave}
+
+          />
+        </View>
+      </ScrollView>
       <StatusBar style="auto" />
     </View>
   );

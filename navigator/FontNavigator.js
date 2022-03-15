@@ -8,7 +8,7 @@ import Usuarios from "../app/screens/Usuarios";
 import Fontaneros from "../app/screens/Fontaneros/Fontaneros";
 import Home from "../app/screens/Home/Home";
 import Categorias from "../app/screens/Categorias/Categorias";
-import TipoUsuarios from "../app/screens/TipoUsuarios";
+import TipoFontaneros from "../app/screens/TipoFontaneros/TipoFontaneros";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,8 +44,8 @@ function FontNavigator() {
           options={{ title: "Categorias de Fontaneros" }}
         />
         <Stack.Screen
-          name="TipoUsuarios"
-          component={TipoUsuarios}
+          name="TipoFontaneros"
+          component={TipoFontaneros}
           options={({ route }) => ({
             title: route.params.name,
           })}

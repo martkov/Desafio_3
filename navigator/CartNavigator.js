@@ -7,7 +7,7 @@ const Stack = createNativeStackNavigator();
 const CartNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Cart" component={CartScreen} />
+      <Stack.Screen name="Contacte a su fontanero" component={CartScreen} />
     </Stack.Navigator>
   )
 }

@@ -1,15 +1,21 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import GridItem from './../../../components/GridItem';   
-import { CATEGORIES } from '../../../data/categories';
+import { useSelector, useDispatch } from 'react-redux';
+import GridItem from './../../../components/GridItem';
+import {selectCategory} from './../../../store/actions/category.action';
 
 
 function Categorias({ navigation }) {
+  const dispatch = useDispatch();
+  const categories = useSelector(state=> state.categories.list)
+
+
   const handlePress = (item) => {
-    navigation.navigate('TipoUsuarios', { 
+    dispatch(selectCategory(item.id));
+    navigation.navigate('TipoFontaneros', { 
       name: item.title,
-      categoryID: item.id,
-    })
+      
+    });
   }
 
   const renderItem = ({ item }) => (
@@ -18,10 +24,9 @@ function Categorias({ navigation }) {
       onSelected={handlePress}
     />
   )
-
   return (
     <FlatList
-      data={CATEGORIES}
+      data={categories}
       keyExtractor={item => item.id}
       renderItem={renderItem}
     />

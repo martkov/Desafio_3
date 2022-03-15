@@ -11,6 +11,7 @@ import {
   Image,
 } from "react-native";
 import Buttom from "../../../components/Buttom";
+import {COLORS} from "./../../../constants/Colors"
 
 
 import { StatusBar } from "expo-status-bar";
@@ -24,6 +25,13 @@ const widht = Dimensions.get("window").width;
 
 export default function Home({ navigation }) {  
 
+  /*...............................................................
+  const title = "REGISTRO",
+    message = "Ya tienes cuenta ?",
+    messageAction = "Ingresar",
+    messageTarget = "login";
+
+  */
   
 
   const [textInput, setTextInput] = useState("");
@@ -72,18 +80,15 @@ export default function Home({ navigation }) {
         style={styles.image}
         source={require("../../../assets/MiFontanero.png")}
       />
-      <Text style={styles.title}>{"Registrese aqui debajo"}</Text>
+      
+      <Text style={styles.title}>{"Dejenos su comentario"}</Text>
       <View style={styles.inputContainer}>
-        <View style={styles.password}>
+        <View >
           <TextInput
             style={[styles.input]}
-            placeholder="ingrese aqui su nombre de usuario"
+            placeholder="ingrese aqui su comentario"
             value={textInput}
             onChangeText={handleChangeText}
-          />
-          <TextInput
-            style={[styles.input]}
-            placeholder="ingrese aqui su contraseña"
           />
         </View>
         <TouchableOpacity
@@ -91,7 +96,7 @@ export default function Home({ navigation }) {
           activeOpacity={0.7}
           onPress={handleOnPress}
         >
-          <Text>{"  Registre \n sus datos"}</Text>
+          <Text>{"Envienos su \n comentario"}</Text>
         </TouchableOpacity>
       </View>
 
@@ -102,7 +107,7 @@ export default function Home({ navigation }) {
             <Text>{item.value}</Text>
             <Text>
               {
-                "desea borrar \n su nombre de usuario ? \n borrelo presionando la X"
+                "desea borrar \n su comentario ? \n borrelo presionando la X"
               }{" "}
             </Text>
             <Button onPress={handleOnDelete(item)} title="X" />
@@ -114,7 +119,7 @@ export default function Home({ navigation }) {
       <Modal animationType="slide" visible={modalVisible}>
         <View>
           <View>
-            <Text>¿Está seguro que desea eliminar?</Text>
+            <Text>¿Está seguro que lo desea eliminar?</Text>
             <Text>{itemSelected.value}</Text>
           </View>
           <View>
@@ -122,11 +127,11 @@ export default function Home({ navigation }) {
           </View>
         </View>
       </Modal>
-      <StatusBar style="auto" />
+      <StatusBar style="auto" />      
 
       <Buttom
         style={styles.btn}
-        title="Recomiende a su Fontanero ingresando aqui"
+        title="Recomiende a un Fontanero"
         onPress={() => navigation.navigate("Fontaneros")}
       />
       <Buttom
@@ -171,8 +176,10 @@ const styles = StyleSheet.create({
   image: {
     width: 250,
     height: 150,
+    alignSelf:'center',
   },
   title:{
+    marginTop: 20,
     fontSize: 18,
     fontFamily: 'Acme',
   },

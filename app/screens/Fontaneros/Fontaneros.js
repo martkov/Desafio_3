@@ -14,6 +14,9 @@ import * as Yup from "yup";
 import Buttom from "../../../components/Buttom";
 import Colors from "../../../constants/Colors";
 
+import { useDispatch } from "react-redux";
+import { confirmFont } from "../../../store/actions/regisFont.action";
+
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "debe tener mas de 2 caracteres")
@@ -28,6 +31,9 @@ const SignupSchema = Yup.object().shape({
 const widht = Dimensions.get("window").width;
 
 const Fontaneros = ({ navigation }) => {
+
+  const dispatch = useDispatch(); //.......................para ingresar a Firebase
+
   const [textInput, setTextInput] = useState("");
   const [itemList, setItemList] = useState([]);
 
@@ -36,9 +42,11 @@ const Fontaneros = ({ navigation }) => {
 
   const handleChangeText = (text) => {
     setTextInput(text);
+    
   };
 
   const handleOnPress = () => {
+    
     setTextInput("");
     setItemList([
       ...itemList,
@@ -52,13 +60,16 @@ const Fontaneros = ({ navigation }) => {
   const handleOnDelete = (item) => () => {
     setModalVisible(true);
     setItemSelected(item);
+    dispatch(confirmFont(item))//..............................ingreso de datos a Firebase
   };
 
   const handleConfirmDelete = () => {
     const { id } = itemSelected;
+    
     setItemList(itemList.filter((item) => item.id !== id));
     setModalVisible(false);
     setItemSelected({});
+    
   };
 
   console.log(textInput);
@@ -92,8 +103,8 @@ const Fontaneros = ({ navigation }) => {
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Text>{item.value}</Text>
-            <Text>{"borrelo presionando la X"}</Text>
-            <Button onPress={handleOnDelete(item)} title="X" />
+            <Text>{"Ingreselo presionando el OK"}</Text>
+            <Button onPress={handleOnDelete(item)} title="O.K" />
           </View>
         )}
         keyExtractor={(item) => item.id}
@@ -102,11 +113,11 @@ const Fontaneros = ({ navigation }) => {
       <Modal animationType="slide" visible={modalVisible}>
         <View>
           <View>
-            <Text>¿Está seguro que desea eliminar?</Text>
+            <Text>Ha sido agregado con exito !!!</Text>
             <Text>{itemSelected.value}</Text>
           </View>
           <View>
-            <Button onPress={handleConfirmDelete} title="CONFIRMAR" />
+            <Button onPress={handleConfirmDelete} title="CONFIRMAR Y RETORNAR" />
           </View>
         </View>
       </Modal>

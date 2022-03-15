@@ -13,15 +13,30 @@ import {
 import { createStore } from "redux";
 import Buttom from "../../../components/Buttom";
 import Counter from "./Counter";
+import { useDispatch, useSelector} from 'react-redux';
+import { useEffect } from "react";
+import { getFont} from './../../../store/actions/lista.action';
 
 function CartScreen({}) {
+  const dispatch= useDispatch();
+  const list = useSelector (state => state.listaFontaneros.list)
+
+  useEffect(()=> {
+      dispatch( getFont())
+  }, []);
+
+  console.log(list)
+
+  
   return (
-    <View>
+    
+    <View style={styles.container} >
       <Text>
         Cuanto estaria dispuesto a pagar por la visita del Fontanero ?{" "}
       </Text>
       <Text>Monto estimado .....</Text>
       <Counter/>
+      <Text>Listado de fontaneros</Text>
     </View>
   );
 }

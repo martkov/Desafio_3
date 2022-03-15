@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, Animated } from "react-native";
-import {Ionicon} from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -14,7 +13,7 @@ import FontNavigator from "./FontNavigator";
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
-  const [animated, setAnimated] = useState(false);
+  /*const [animated, setAnimated] = useState(false);
   const [show] = useState(new Animated.Value(0));
   const [position] = useState(new Animated.Value(700));
   const [font] = useState(new Animated.Value(1));
@@ -59,7 +58,7 @@ function TabNavigator() {
           barStyle={"ligth-content"}
         />
       </View>
-    );
+    );  */
 
   return (
     <Tab.Navigator
@@ -89,9 +88,9 @@ function TabNavigator() {
       options={{
         tabBarLabel: "Cart",
         tabBarIcon: ({focused}) => (
-          <View>
+          <View  style={{alignItems: "center"}}>
             <MaterialIcons name="contact-phone" size={24} color="black"  />
-            <Text>Contacte a su Fontanero</Text>
+            <Text>Contacte a su fontanero</Text>
           </View>
         )
       }}

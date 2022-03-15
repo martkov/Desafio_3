@@ -12,6 +12,8 @@ function Buttom({ title, onPress, color, children }) {
 
 const styles = StyleSheet.create({
   btn: {
+    marginTop:25,
+    
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -28,6 +30,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginBottom: 10,
     borderRadius: 10,
+    
   },
  
 });
