@@ -124,13 +124,8 @@ const Fontaneros = ({ navigation }) => {
 
       <Buttom
         style={styles.btn}
-        title="Seleccione la categoria de fontanero"
+        title="Aqui puede ver que son las categorias de fontanero"
         onPress={() => navigation.navigate("Categorias")}
-      />
-      <Buttom
-        color={Colors.primary}
-        title="ir al home"
-        onPress={() => navigation.navigate("Home")}
       />
     </View>
   );

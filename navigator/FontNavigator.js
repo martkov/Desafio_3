@@ -1,14 +1,19 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import Usuarios from "../app/screens/Usuarios";
 import Fontaneros from "../app/screens/Fontaneros/Fontaneros";
 import Home from "../app/screens/Home/Home";
 import Categorias from "../app/screens/Categorias/Categorias";
 import TipoFontaneros from "../app/screens/TipoFontaneros/TipoFontaneros";
+import MapScreen from "../app/screens/Maps/MapScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +35,16 @@ function FontNavigator() {
         <Stack.Screen
           name="Usuarios"
           component={Usuarios}
-          options={{ title: "Panel del Usuario" }}
+          options={({ navigation }) => ({
+            title: "Panel del Usuario",
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Categorias")}
+              >
+                <Ionicons name="information" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          })}
         />
         <Stack.Screen
           name="Fontaneros"
@@ -42,6 +56,11 @@ function FontNavigator() {
           name="Categorias"
           component={Categorias}
           options={{ title: "Categorias de Fontaneros" }}
+        />
+        <Stack.Screen
+          name="Map"
+          component={MapScreen}
+          options={{ title: "Mapa" }}
         />
         <Stack.Screen
           name="TipoFontaneros"

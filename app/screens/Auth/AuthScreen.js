@@ -39,8 +39,8 @@ function AuthScreen() {
     if (id === "password") setPassword(isValid);
   };
 
+  /*......el fonts va sobre el return ......*/
   const [loaded] = useFonts({
-    /*......el fonts va sobre el return ......*/
     Acme: require("./../../../assets/fonts/Acme-Regular.ttf"),
   });
   if (!loaded) return <AppLoading />;
@@ -49,25 +49,27 @@ function AuthScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.title}>U s u a r i o</Text>
-      <TextInput
-        style={[styles.input]}
-        placeholder="ingrese aqui su Email"
-        value={email}
-        onChangeText={setEmail}
+      <Input
+        label="Ingrese su Email"
+        onInputChange={handleInputChange}
         keyboardType="email-address"
+        autoCapitalize="none"
+        required
       />
       <Text style={styles.title}>C l a v e</Text>
-      <TextInput
-        style={[styles.input]}
-        placeholder="ingrese aqui su clave"
-        value={password}
-        onChangeText={setPassword}
+      <Input
+        label="Ingrese su Clave"
+        onInputChange={handleInputChange}
         secureTextEntry
+        required
       />
-      <Buttom title={messageRegistro} onPress={handleSignUp} />
+      <Buttom
+      title={messageRegistro} 
+      onPress={handleSignUp} 
+      />
       <View>
         <Text style={styles.title}>{message}</Text>
-        <Buttom title={messageAction} />
+        <Buttom title={messageAction}   />
       </View>
       <Image
         style={styles.image}
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Acme",
     alignSelf: "center",
-    padding: 20,
+    padding: 10,
   },
 });
 

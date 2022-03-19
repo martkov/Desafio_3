@@ -13,52 +13,7 @@ import FontNavigator from "./FontNavigator";
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
-  /*const [animated, setAnimated] = useState(false);
-  const [show] = useState(new Animated.Value(0));
-  const [position] = useState(new Animated.Value(700));
-  const [font] = useState(new Animated.Value(1));
-
-  useEffect(() => {
-    Animated.parallel([
-      Animated.timing(show, {
-        toValue: 1,
-        duration: 1000,
-        delay: 3000,
-        useNativeDriver: false,
-      }),
-      Animated.timing(position, {
-        toValue: -100,
-        duration: 5000,
-        useNativeDriver: false,
-      }),
-    ]).start(() => {
-      Animated.timing(font, {
-        toValue: 200,
-        duration: 2000,
-        useNativeDriver: false,
-      }).start(() => setAnimated(true));
-    });
-  }, []);
-
-  if (!animated)
-    return (
-      <View style={styles.container}>
-        <Animated.Text
-          style={[styles.text, { opacity: show, transform: [{ scale: font }] }]}
-        >
-          {"miFontanero \n App"}
-        </Animated.Text>
-        <Animated.Image
-          style={(styles.image, { top: position })}
-          source={require("../assets/MiFontanero.png")}
-        />
-        <StatusBar
-          animated={true}
-          backgroundColor={`#7fffd4`}
-          barStyle={"ligth-content"}
-        />
-      </View>
-    );  */
+  
 
   return (
     <Tab.Navigator

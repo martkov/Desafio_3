@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, Animated } from "react-native";
+import { StyleSheet, View, Animated } from "react-native";
 import { useSelector } from "react-redux";
 
 
@@ -63,7 +63,7 @@ function MainNavigator() {
   return (
 
     <NavigationContainer>
-      <TabNavigator />
+      { isAuthenticated ? <TabNavigator /> : <AuthNavigator />} 
     </NavigationContainer>
   /*   { isAuthenticated ?  ...........  : <AuthNavigator />}         */ 
   );

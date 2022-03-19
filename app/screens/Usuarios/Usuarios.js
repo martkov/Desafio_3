@@ -6,84 +6,59 @@ import {
   Text,
   TextInput,
   View,
-  Button,
-  Image,
-  FlatList,
-  Modal,
   ScrollView,
-  Alert,
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Buttom from "../../../components/Buttom";
 import { useDispatch } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
-import { addPlace } from "../../../store/actions/place.actions";
-import * as ImagePicker from 'expo-image-picker';
+import { addFont } from "../../../store/actions/add.actions";
+import ImageSelector from "../../../components/ImageSelector";
+import LocatationSelector from "../../../components/LocatationSelector";
+import { useSelector } from "react-redux";
 
-export default function Usuarios() {
+export default function Usuarios({navigation}) {
   const dispatch = useDispatch()
   const [title, setTitle] =useState();
+  const [image, setImage] = useState();
+  const [location, setLocation] = useState();
 
-  const [pickedUri, setpickeUri]= useState();
+  const fontBarrios = useSelector(state => state.fontBarrios.fontBarrios);
+  console.log(fontBarrios)
 
-  const verifyPermissions = async ()=> {
-      const {granted} = await ImagePicker.requestCameraPermissionsAsync()
-      if(granted){
-        return true;
-      }
-      Alert.alert(
-        'permisos insuficientes',
-        [{text:'ok'}]
-      )
-      return false;
-  }
-
-  const handleTakeImage = async () => {
-      const isCamaraOk = await verifyPermissions()
-      if (!isCamaraOk) return;
-
-      const image = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16,9],
-        quality: 0.8,
-      })
-  }
-
-  const handleSave = () => {
-    dispatch(addPlace(title))
-    //navigation.navigate('Home')
-    console.log(title)
-  }
+  //........................................................................................
   
 
-  return (
-    <View style={styles.container}>
+  const handleSave = () => {
+    dispatch(addFont(title, image, location))
+    navigation.navigate('Home') // go back
+    console.log(title)
+  }
+  //.............................................................................
 
-      <Buttom
-        style={styles.btn}
-        title="Lista de Fontaneros recomendados en su barrio"
-        onPress={() =>
-          console.log("Ingreso a su portal de usuario, Bienvenido")
-        }
-      />
+  return (
+    
       <ScrollView>
-        <View>
-          <Text>titulo</Text>
+        <View style={styles.container}>
+          <Text>datos del Fontanero que quiere recomendar</Text>
           <TextInput
           style={styles.input}
           value={title}
           onChangeText={setTitle}
           />
+          <ImageSelector
+          onImageSelected={setImage}
+          />
+          <LocatationSelector 
+          onLocationSelected={setLocation}
+          />
           <Buttom 
           style={styles.btn}
-          title={"guardar"}
+          title={"guardar en el listado de fontaneros"}
           onPress={handleSave}
-
           />
         </View>
+        <StatusBar style="auto" />
       </ScrollView>
-      <StatusBar style="auto" />
-    </View>
+     
   );
 }
 
