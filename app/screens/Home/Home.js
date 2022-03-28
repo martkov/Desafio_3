@@ -131,7 +131,7 @@ export default function Home({ navigation }) {
 
       <Buttom
         style={styles.btn}
-        title="Recomiende a un Fontanero"
+        title="Guarde los datos del Fontanero que quiere"
         onPress={() => navigation.navigate("Fontaneros")}
       />
       <Buttom

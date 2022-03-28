@@ -1,0 +1,41 @@
+[33mcommit 41b35eb366362819370842111662d2429a4ffae6[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: martkov <martkov@gmail.com>
+Date:   Sat Mar 19 12:59:54 2022 -0300
+
+    login & devices
+
+[33mcommit fae5fa7e53c4472a5aca36d058327a39ad6bd894[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: martkov <martkov@gmail.com>
+Date:   Tue Mar 15 14:26:10 2022 -0300
+
+    con login
+
+[33mcommit 6f4c4df3881fcba0353688a3c019d69664887cde[m
+Author: martkov <martkov@gmail.com>
+Date:   Sun Mar 6 20:21:41 2022 -0300
+
+    con Redux ahora
+
+[33mcommit 66ed69afdabfa88657dd80ec1dc109bc0e5c1d77[m
+Author: martkov <martkov@gmail.com>
+Date:   Tue Mar 1 13:08:56 2022 -0300
+
+    app de mi Fontanero con Tab Navigation
+
+[33mcommit a01a63638eca600e9a29afe244d19ccf1d529537[m
+Author: martkov <martkov@gmail.com>
+Date:   Fri Feb 25 10:43:32 2022 -0300
+
+    desafio 4
+
+[33mcommit c4c0d32464201209d51834576be012bd5f962582[m
+Author: martin <martkov@gmail.com>
+Date:   Wed Feb 16 17:24:41 2022 -0300
+
+    app de miFontanero
+
+[33mcommit 9d2061765d8c2654d1a8fc72f282d4940ad0e530[m
+Author: martin <martkov@gmail.com>
+Date:   Sat Feb 5 20:04:03 2022 -0300
+
+    Created a new Expo app

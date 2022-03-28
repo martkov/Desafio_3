@@ -63,7 +63,7 @@ function MainNavigator() {
   return (
 
     <NavigationContainer>
-      { isAuthenticated ? <TabNavigator /> : <AuthNavigator />} 
+            { isAuthenticated ?  <TabNavigator /> : <AuthNavigator />} 
     </NavigationContainer>
   /*   { isAuthenticated ?  ...........  : <AuthNavigator />}         */ 
   );

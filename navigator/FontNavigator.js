@@ -49,7 +49,7 @@ function FontNavigator() {
         <Stack.Screen
           name="Fontaneros"
           component={Fontaneros}
-          options={{ title: "Lista de Fontaneros" }}
+          options={{ title: "Anote al que eligio" }}
         />
 
         <Stack.Screen

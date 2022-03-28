@@ -64,7 +64,7 @@ export default function Usuarios({navigation}) {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 20,
+    fontSize: 10,
   },
   container: {
     flex: 1,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    padding: 20,
+    padding: 10,
     marginVertical: 20,
     borderColor: "black",
     borderWidth: 1,
