@@ -1,9 +1,9 @@
 import React, { useCallback, useReducer } from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import AuthScreenWrapper from '../../../components/AuthScreenWrapper';
-//import { COLORS } from '../../../constants/colors';
+import Buttom from '../../../components/Buttom';
 import { signup } from '../../../store/actions/auth.action';
 import Input from '../../../components/Input';
 import { formReducer, FORM_INPUT_UPDATE } from './formReducer';
@@ -44,6 +44,7 @@ const RegisterScreen = () => {
   }, [formDispatch]);
 
   return (
+    <View style={styles.container}>
     <AuthScreenWrapper
       title="REGISTRO"
       message="¿Ya tienes cuenta?"
@@ -70,12 +71,12 @@ const RegisterScreen = () => {
         minLength={6}
         onInputChange={onInputChangeHandler}
       />
-      <Button
+      <Buttom
         title="REGISTRARME"
         onPress={handleSignUp}
-        buttonStyle={styles.button}
       />
     </AuthScreenWrapper>
+    </View>
   );
 }
 
@@ -83,6 +84,11 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#7fffd4',
     marginVertical: 20,
+  },
+  container: {
+    flex: 1,
+    padding: 30,
+    backgroundColor: `#00bfff`,
   },
 });
 
