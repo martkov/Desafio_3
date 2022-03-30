@@ -1,8 +1,10 @@
-import React, { useState, useEffect, StatusBar } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-
-
+import React, { useState, useEffect } from "react";
+import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Animated } from "react-native";
+
+
+
+import { NavigationContainer } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { initAuthentication } from "../store/actions/auth.action";
 
@@ -10,10 +12,8 @@ import { initAuthentication } from "../store/actions/auth.action";
 import TabNavigator from "./TabNavigator";
 import AuthNavigator from "./AuthNavigator";
 
-const MainNavigator = () => {
-  
-  const dispatch = useDispatch();
-  const userId = useSelector(state => state.auth.userId);
+
+function Animate() {
 
   const [animated, setAnimated] = useState(false);
   const [show] = useState(new Animated.Value(0));
@@ -22,8 +22,6 @@ const MainNavigator = () => {
 
 
   useEffect(() => {
-
-    /*
     Animated.parallel([
       Animated.timing(show, {
         toValue: 1,
@@ -43,14 +41,7 @@ const MainNavigator = () => {
         useNativeDriver: false,
       }).start(() => setAnimated(true));
     });
-    //...........................................*/
-
-
-    dispatch(initAuthentication());
-    
-  }, []);
-
-  /*...................................................
+}, []);
 
   if (!animated)
     return (
@@ -72,21 +63,15 @@ const MainNavigator = () => {
       </View>
     );
 
-  //::::::............................................*/
-
   return (
-    
-    <NavigationContainer>
-      
-      {userId
-        ? <TabNavigator />
-        : <AuthNavigator />}
-  
-    </NavigationContainer>
+
+    console.log('hola')
+
   );
+
 }
 
-export default MainNavigator;
+export default Animate;
 
 
 
